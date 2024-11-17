@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>মাহু - অনন্ত প্রেমের গল্প</title>
+    <title>অনন্ত অপেক্ষা</title>
     <style>
         /* General Styling */
         * {
@@ -14,157 +14,150 @@
 
         body {
             font-family: 'Georgia', serif;
-            background: linear-gradient(to bottom, #121212, #2c003e, #5b006a);
-            color: #fff;
-            overflow-y: scroll;
-            height: 100vh;
+            background: linear-gradient(45deg, rgba(255, 0, 0, 0.8), rgba(0, 255, 255, 0.8), rgba(0, 0, 255, 0.8));
+            background-size: 400% 400%;
+            animation: gradientBG 10s infinite ease-in-out;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            min-height: 100vh;
+            color: #fff;
         }
 
-        .moon {
-            position: absolute;
-            top: 10%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 150px;
-            height: 150px;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0) 70%);
-            border-radius: 50%;
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.7);
-            animation: moonGlow 3s infinite alternate;
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        @keyframes moonGlow {
-            0% { box-shadow: 0 0 30px rgba(255, 255, 255, 0.5); }
-            100% { box-shadow: 0 0 60px rgba(255, 255, 255, 0.9); }
-        }
-
-        .stars {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: transparent;
-        }
-
-        .stars div {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            animation: twinkle 2s infinite alternate;
-        }
-
-        @keyframes twinkle {
-            0% { opacity: 0.5; transform: scale(0.8); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-
+        /* Poem Styling */
         .poem-container {
-            margin-top: 100px;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(8px);
             text-align: center;
-            animation: fadeIn 3s ease-out;
-        }
-
-        .poem-line {
-            font-size: 1.4rem;
-            line-height: 2.5rem;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: slideIn 1.5s ease forwards;
-        }
-
-        .poem-line:nth-child(odd) { animation-delay: 0.5s; }
-        .poem-line:nth-child(even) { animation-delay: 1s; }
-
-        @keyframes slideIn {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
+            padding: 30px;
+            margin: 20px;
+            max-width: 600px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 3s ease;
         }
 
         @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .play-btn {
-            margin-top: 30px;
-            padding: 15px 30px;
-            font-size: 1.2rem;
+        .poem-container h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #ffcccb;
+            text-shadow: 0 3px 5px rgba(0, 0, 0, 0.8);
+        }
+
+        .poem-container p {
+            font-size: 1.4rem;
+            line-height: 2.2rem;
+            letter-spacing: 1px;
+            color: #e0e0e0;
+        }
+
+        /* Floating Stars */
+        .star {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+            animation: twinkle 5s infinite alternate ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.6; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.5); }
+        }
+
+        .star:nth-child(1) { top: 15%; left: 20%; animation-delay: 0.5s; }
+        .star:nth-child(2) { top: 35%; left: 65%; animation-delay: 1s; }
+        .star:nth-child(3) { top: 50%; left: 40%; animation-delay: 1.5s; }
+        .star:nth-child(4) { top: 65%; left: 80%; animation-delay: 2s; }
+        .star:nth-child(5) { top: 25%; left: 50%; animation-delay: 2.5s; }
+
+        /* Play Song Button */
+        .play-text {
+            margin-top: 20px;
+            font-size: 1.8rem;
             font-weight: bold;
-            background: linear-gradient(45deg, #ff79cd, #ff2975);
-            color: white;
-            border: none;
-            border-radius: 25px;
+            color: #ffd700;
             cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: bounce 2s infinite ease-in-out;
         }
 
-        .play-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.5);
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
-        .play-btn:focus {
-            outline: none;
-        }
-
-        .after-click {
-            display: none;
-            margin-top: 15px;
-            font-size: 1.5rem;
-            color: #ff79cd;
-            animation: heartPulse 1s infinite alternate;
+        .play-text.clicked {
+            font-size: 2rem;
+            color: #ff69b4;
+            text-shadow: 0 3px 10px rgba(255, 255, 255, 0.8);
+            animation: heartPulse 1s infinite ease-in-out;
         }
 
         @keyframes heartPulse {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.2); }
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
         }
+
     </style>
 </head>
 <body>
-    <div class="moon"></div>
-    <div class="stars">
-        <!-- Random Stars -->
-        <div style="top: 20%; left: 30%; animation-delay: 0.3s;"></div>
-        <div style="top: 50%; left: 60%; animation-delay: 1s;"></div>
-        <div style="top: 70%; left: 40%; animation-delay: 0.8s;"></div>
-        <div style="top: 30%; left: 80%; animation-delay: 1.5s;"></div>
-        <div style="top: 90%; left: 20%; animation-delay: 1.2s;"></div>
-    </div>
+    <!-- Background Stars -->
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
 
+    <!-- Poem Section -->
     <div class="poem-container">
-        <div class="poem-line">"প্রিয়তমা, দূরত্ব কখনো আমাদের ভালবাসাকে ম্লান করতে পারে না।"</div>
-        <div class="poem-line">"তোমার হাসি আমার সমস্ত ব্যথা নিমেষে লাঘব করে।"</div>
-        <div class="poem-line">"প্রতিটি রাত তোমার স্বপ্ন দেখে কাটে,"</div>
-        <div class="poem-line">"আর প্রতিটি সকালে তোমাকে অনুভব করি।"</div>
-        <div class="poem-line">"এই দূরত্ব শুধু আমাদের অপেক্ষার এক দীর্ঘ প্রতিশ্রুতি।"</div>
-        <div class="poem-line">"তোমার প্রতি আমার ভালবাসা, চিরন্তন, চিরকাল।"</div>
+        <h1>অনন্ত অপেক্ষা</h1>
+        <p>
+            প্রিয়তমা, এই দূরত্ব শুধু সময়ের বাঁধা,<br>
+            কিন্তু আমার হৃদয়ে তুমি সবসময়ই কাছে।<br>
+            রাতের তারাগুলো যখন জ্বলজ্বল করে,<br>
+            তোমার মুখের কথা মনে পড়ে।<br>
+            আমার প্রতিটি শ্বাস তোমার নামে, <br>
+            আর প্রতিটি মুহূর্ত তোমার জন্য।<br>
+            এই অপেক্ষা একদিন শেষ হবে,<br>
+            আমরা দু’জন এক হয়ে থাকব।<br>
+        </p>
     </div>
 
-    <button class="play-btn" onclick="playMusic()">Play Song</button>
-    <div id="after-click" class="after-click">I LOVE YOU MAHU ❤️</div>
+    <!-- Play Song Text -->
+    <div class="play-text" onclick="playMusic()" id="playText">
+        Play Song
+    </div>
 
-    <audio id="music" src="22.mp3"></audio>
+    <!-- Audio Element -->
+    <audio id="backgroundMusic" src="22.mp3"></audio>
 
     <script>
         function playMusic() {
-            const music = document.getElementById('music');
-            const btn = document.querySelector('.play-btn');
-            const afterClickText = document.getElementById('after-click');
+            const audio = document.getElementById("backgroundMusic");
+            const playText = document.getElementById("playText");
 
-            music.play();
-            btn.style.display = 'none';
-            afterClickText.style.display = 'block';
+            if (audio.paused) {
+                audio.play();
+                playText.classList.add("clicked");
+                playText.textContent = "I LOVE YOU MAHU ❤️";
+            } else {
+                audio.pause();
+                playText.classList.remove("clicked");
+                playText.textContent = "Play Song";
+            }
         }
     </script>
 </body>
